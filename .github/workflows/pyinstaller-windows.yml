@@ -13,20 +13,11 @@ jobs:
     needs: build-project
 
     steps:
-      - name: Download artifact
         uses: actions/download-artifact@v2
-        with:
-          name: my-exe
-      
-      - name: Archive content
-        uses: thedoctor0/zip-release@master
-        with:
-          filenemame: app.zip
-      
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "app.zip"
+          artifacts: my-exe
           tag: v0.${{ github.run_number }}
           name: Release V0.${{ github.run_number }}
           token: ${{ secrets.GITHUB_TOKEN }}

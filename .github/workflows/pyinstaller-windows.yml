@@ -24,7 +24,7 @@ jobs:
           filenemame: app.zip
       
       - name: Create Release
-        uses: ncipollo/releases-action@v1
+        uses: ncipollo/release-action@v1
         with:
           artifacts: "app.zip"
           tag: v0.${{ github.run_number }}

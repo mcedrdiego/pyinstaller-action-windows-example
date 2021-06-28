@@ -8,7 +8,7 @@ on:
 
 jobs:
   build-project:
-    name: Build .exe for windows
+    name: Build and Release
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -21,16 +21,10 @@ jobs:
         with:
           name: my-exe
           path: src/dist/windows # or path/to/artifact
-  
-  release-project:
-    name: Release windows .exe
-    runs-on: ubuntu-latest
-    needs: build-project
-    steps:
-      - name: Create Github release
-        uses: ncipollo/release-action@v1
+      
+      - uses: ncipollo/release-action@v1
         with:
-          artifacts: "src/dist/windows/my-exe"
+          artifacts: src/dist/windows/my-exe
           tag: v${{ github.run_number }}
           name: Release V${{ github.run_number }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}      

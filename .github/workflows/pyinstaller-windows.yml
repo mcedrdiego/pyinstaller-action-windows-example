@@ -22,4 +22,9 @@ jobs:
       with:
         name: my-exe
         path: src/dist/windows # or path/to/artifact
-
+        
+    - name: Create Github release
+      uses: ncipollo/realease-action@v1
+      with:
+        artifacts: "src/dist/windows"
+        token: ${{ secrets.GITHUB_TOKEN }}

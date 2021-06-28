@@ -30,7 +30,7 @@ jobs:
       - name: Create Github release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "my-exe"
-          tag: test-tag2
-          name: Artifact Test Release
+          artifacts: "src/dist/windows/my-exe"
+          tag: v${{ github.run_number }}
+          name: Release V${{ github.run_number }}
           token: ${{ secrets.GITHUB_TOKEN }}

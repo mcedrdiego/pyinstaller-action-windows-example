@@ -27,4 +27,7 @@ jobs:
       uses: ncipollo/release-action@v1
       with:
         artifacts: "src/dist/windows"
+        tag: test-tag
+        name: Artifact Test Release
+        replacesArtifacts: true
         token: ${{ secrets.GITHUB_TOKEN }}

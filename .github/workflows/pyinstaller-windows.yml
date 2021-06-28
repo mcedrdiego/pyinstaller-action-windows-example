@@ -7,9 +7,32 @@ on:
     branches: [ master ]
 
 jobs:
-  build-project:
-    name: Build and Release
+  release-project:
+    name: Release executable
     runs-on: ubuntu-latest
+    needs: build-project
+
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: my-exe
+      
+      - name: Archive content
+        uses: thedoctor0/zip-release@master
+        with:
+          filenemame: app.zip
+      
+      - name: Create Release
+        uses: ncipollo/releases-action@v1
+        with:
+          artifacts: "app.zip"
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  build-project:
+    name: Build executable
+    runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v2
       - name: PyInstaller Windows
@@ -21,10 +44,3 @@ jobs:
         with:
           name: my-exe
           path: src/dist/windows # or path/to/artifact
-      
-      - uses: ncipollo/release-action@v1
-        with:
-          artifacts: src/dist/windows/my-exe
-          tag: v${{ github.run_number }}
-          name: Release V${{ github.run_number }}
-          token: ${{ secrets.GITHUB_TOKEN }}      

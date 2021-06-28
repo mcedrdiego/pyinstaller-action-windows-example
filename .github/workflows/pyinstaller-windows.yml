@@ -31,6 +31,6 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           artifacts: "my-exe"
-          tag: test-tag
+          tag: test-tag2
           name: Artifact Test Release
           token: ${{ secrets.GITHUB_TOKEN }}
